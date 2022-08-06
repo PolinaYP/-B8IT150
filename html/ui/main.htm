@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <base href="{{ @BASE_URL }}" />
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+      <title>{{ @pageTitle }}</title>
+      <style>
+        body { display: flex; min-height: 100vh; flex-direction: column; }
+        main { flex: 1 0 auto; }
+      </style>
+    </head>
+
+    <body>
+      <nav class="nav-extended navbar-fixed blue-grey darken-4">
+        <div class="nav-wrapper">
+          <a href="{{ @BASE_URL }}" class="brand-logo">Movies DB</a>
+          <ul class="right">
+            <li class="tab"><a href="{{ @BASE_URL }}" <check if="{{ @PATH == '/' }}">class="active"</check> >Home</a></li>
+            <li class="tab"><a href="{{ @BASE_URL }}movies" <check if="{{ @PATH == '/movies' }}">class="active"</check> >Movies</a></li>
+            <li class="tab"><a href="{{ @BASE_URL }}actors" <check if="{{ @PATH == '/actors' }}">class="active"</check> >Actors</a></li>
+          </ul>
+        </div>
+      </nav>
+      <main>
+        <include href="{{ @content }}" />
+      </main>
+      <footer class="page-footer blue-grey darken-4">
+        <div class="footer-copyright">
+          <div class="container center-align">
+            Developed by {{ @PACKAGE }}
+          </div>
+        </div>
+      </footer>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+    </body>
+  </html>
