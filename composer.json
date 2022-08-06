@@ -1,0 +1,16 @@
+{
+    "require": {
+        "bcosca/fatfree-core": "^3.8"
+    },
+    "autoload": {
+        "classmap": [
+            "html/"
+        ]
+    },
+    "scripts": {
+        "start": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:80 -t html"
+        ]
+    }
+}
