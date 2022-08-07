@@ -1,6 +1,12 @@
 {
     "require": {
-        "bcosca/fatfree-core": "^3.8"
+        "bcosca/fatfree-core": "^3.8",
+        "php-tmdb/api": "^4",
+        "symfony/event-dispatcher": "*",
+        "guzzlehttp/guzzle": "*",
+        "symfony/cache": "*",
+        "monolog/monolog": "*",
+        "nyholm/psr7": "*"
     },
     "autoload": {
         "classmap": [
