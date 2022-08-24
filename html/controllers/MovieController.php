@@ -9,7 +9,7 @@ final class MovieController {
         $repository = new MovieRepository($client);
         $details = $repository->load($args['movieId']);
         $f3->set('BREADCRUMB', [
-            ['title' => 'Popular', 'path' => ''],
+            ['title' => 'Movies', 'path' => ''],
             ['title' => $details->getTitle(), 'path' => '/movies/'.$args['movieId']],
         ]);
         $f3->set('movie', $details);

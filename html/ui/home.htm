@@ -1,16 +1,28 @@
-<h1>Popular titles</h1>
-<ul class="collection">
-    <repeat group="{{ @popular }}" value="{{ @movie }}">
-        <li class="collection-item avatar">
-            <img src="{{ @movie.image }}" alt="" class="circle">
-            <span class="title"><strong>{{ @movie.title }}</strong>  <i class="tiny material-icons">grade</i>{{@movie.voteAverage}} ({{@movie.voteCount}} votes)</span>
-            <p>
-                Release - {{@movie.releaseDate}}
-            </p>
-            <p class="secondary-content">
-                <a href="{{@BASE}}/movies/{{@movie.id}}" class="waves-effect waves-light btn">Details</a>
-            </p>
-          </li>
-    </repeat>
-</ul>
+<div class="row">
+    <div class="col l4 m6 s12">
+        <ul class="tabs">
+            <li class="tab"><a <check if="{{isset(@isPopular) && @isPopular}}">class="active"</check> href="?mode=Popular">Popular</a></li>
+            <li class="tab"><a <check if="{{isset(@isTopRated) && @isTopRated}}">class="active"</check> href="?mode=BestRated">Best Rated</a></li>
+        </ul>
+    </div>
+</div>
+<div class="row">
+    <h3>{{@pageTitle}}</h3>
+    <div class="col l12">
+        <ul class="collection">
+            <repeat group="{{ @popular }}" value="{{ @movie }}">
+                <li class="collection-item avatar">
+                    <img src="{{ @movie.image }}" alt="" class="circle">
+                    <span class="title"><strong>{{ @movie.title }}</strong>  <i class="tiny material-icons">grade</i>{{@movie.voteAverage}} ({{@movie.voteCount}} votes)</span>
+                    <p>
+                        Release - {{@movie.releaseDate}}
+                    </p>
+                    <p class="secondary-content">
+                        <a href="{{@BASE}}/movies/{{@movie.id}}" class="waves-effect waves-light btn">Details</a>
+                    </p>
+                  </li>
+            </repeat>
+        </ul>
+    </div>
+</div>
 
