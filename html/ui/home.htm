@@ -1,11 +1,16 @@
-<h1>Home page title</h1>
-
+<h1>Popular titles</h1>
 <ul class="collection">
     <repeat group="{{ @popular }}" value="{{ @movie }}">
-        <li class="collection-item">
-            <img src="{{ @movie.image }}" >
-            <p>{{ @movie.title }}</p>
-        </li>
+        <li class="collection-item avatar">
+            <img src="{{ @movie.image }}" alt="" class="circle">
+            <span class="title"><strong>{{ @movie.title }}</strong>  <i class="tiny material-icons">grade</i>{{@movie.voteAverage}} ({{@movie.voteCount}} votes)</span>
+            <p>
+                Release - {{@movie.releaseDate}}
+            </p>
+            <p class="secondary-content">
+                <a href="{{@BASE}}/movies/{{@movie.id}}" class="waves-effect waves-light btn">Details</a>
+            </p>
+          </li>
     </repeat>
 </ul>
 
