@@ -1,16 +1,26 @@
 <div class="row">
-    <div class="col l4 m6 s12">
-        <ul class="tabs">
+
+</div>
+<div class="row">
+    <div class="col m6 l6 s12">
+        <ul class="tabs grey lighten-2">
             <li class="tab"><a <check if="{{isset(@isPopular) && @isPopular}}">class="active"</check> href="?mode=Popular">Popular</a></li>
             <li class="tab"><a <check if="{{isset(@isTopRated) && @isTopRated}}">class="active"</check> href="?mode=BestRated">Best Rated</a></li>
+            <li class="tab"><a <check if="{{isset(@isUpcoming) && @isUpcoming}}">class="active"</check> href="?mode=Upcoming">Upcoming</a></li>
+            <li class="tab"><a <check if="{{isset(@isNowPlaying) && @isNowPlaying}}">class="active"</check> href="?mode=NowPlaying">Now playing</a></li>
         </ul>
+    </div>
+    <div class="col l6 m6 s12 input-field greay lighten-2">
+        <input id="search" type="search" onkeypress="search(this, event)" <check if="{{isset(@searchString)}}" >value="{{@searchString}}"</check>>
+        <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+        <i class="material-icons">close</i>
     </div>
 </div>
 <div class="row">
     <h3>{{@pageTitle}}</h3>
     <div class="col l12">
         <ul class="collection">
-            <repeat group="{{ @popular }}" value="{{ @movie }}">
+            <repeat group="{{ @list }}" value="{{ @movie }}">
                 <li class="collection-item avatar">
                     <img src="{{ @movie.image }}" alt="" class="circle">
                     <span class="title"><strong>{{ @movie.title }}</strong>  <i class="tiny material-icons">grade</i>{{@movie.voteAverage}} ({{@movie.voteCount}} votes)</span>
@@ -25,4 +35,10 @@
         </ul>
     </div>
 </div>
-
+<script type="text/javascript">
+    function search(field, event) {
+        if(event.isTrusted && event.key === 'Enter') {
+            window.location.href = window.location.protocol + "//" + window.location.host + window.location.pathname + '?search=' + field.value;
+        }
+    }
+</script>

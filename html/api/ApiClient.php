@@ -18,7 +18,7 @@ final class ApiClient {
         $client = new Client(
             [
                 /** @var BearerToken */
-                'api_token' => new ApiToken('3e3b38f150b9ff4564c3e985a055d15b'),// new BearerToken('eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTNiMzhmMTUwYjlmZjQ1NjRjM2U5ODVhMDU1ZDE1YiIsInN1YiI6IjYyZWU2YTU3NDZhZWQ0MDA5MTdlMTlhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J_MFmVw0R_wAQb2Yf_xttF3TPLrBa7pI_HY6m-_RwKE'),
+                'api_token' => new BearerToken('eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIzZTNiMzhmMTUwYjlmZjQ1NjRjM2U5ODVhMDU1ZDE1YiIsInN1YiI6IjYyZWU2YTU3NDZhZWQ0MDA5MTdlMTlhNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.J_MFmVw0R_wAQb2Yf_xttF3TPLrBa7pI_HY6m-_RwKE'),
                 'event_dispatcher' => [
                     'adapter' => $ed
                 ],

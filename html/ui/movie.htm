@@ -1,4 +1,82 @@
-<h1>{{@movie->getTitle()}}</h1>
-<div>
-    {{@movie->getOverview()}}
+<div class="content">
+    <div class="row">
+        <div class="col s12 m6 l4 center">
+            <img src="http://image.tmdb.org/t/p/w300{{@movie->getPosterImage()->getFilePath()}}">
+        </div>
+        <div class="col s12 m6 l8">
+            <h4>{{@movie->getTitle()}}</h4>
+            <table>
+                <body>
+                    <tr>
+                        <th>Rating</th>
+                        <th>{{@movie->getVoteAverage()}}</th>
+                    </tr>
+                    <tr>
+                        <th>Vote count</th>
+                        <th>{{@movie->getVoteCount()}} votes</th>
+                    </tr>
+                    <check if="{{ @movie->getReleaseDate() && gettype(@movie->getReleaseDate()) === 'DateTime'}}">
+                        <tr>
+                            <th>Release date</th>
+                            <th>{{@movie->getReleaseDate()->format('l d F Y')}}</th>
+                        </tr>
+                    </check>
+                    <tr>
+                        <th>Budget</th>
+                        <th>${{number_format(@movie->getBudget())}}</th>
+                    </tr>
+                </body>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m12">
+            {{@movie->getOverview()}}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col m6 l6 s12">
+            <h5>Reviews</h5>
+            <div class="carousel carousel-slider">
+                <repeat group="{{@movie->getReviews()}}" value="{{@review}}">
+                    <div class="carousel-item black-text">
+                        <div>
+                            <strong>{{@review->getAuthor()}}</strong>
+                        </div>
+                        <p>
+                            {{mb_strimwidth(@review->getContent(), 0, 1200, "...")}}
+                        </p>
+                    </div>
+                </repeat>
+            </div>
+        </div>
+        <div class="col l6 m6 m12">
+            <h5>Similar movies</h5>
+            <ul class="collection" style="height: 400px; overflow-y:scroll; overflow-x: hidden;">
+                <repeat group="{{ @movie->getSimilar() }}" value="{{ @similar }}" counter="{{@count}}">
+                    <li class="collection-item avatar">
+                        <img src="http://image.tmdb.org/t/p/w92{{@similar->getPosterImage()->getFilePath()}}" alt="" class="circle">
+                        <span class="title"><strong>{{ @similar->getTitle() }}</strong>  <i class="tiny material-icons">grade</i>{{@similar->getVoteAverage()}} ({{@similar->getVoteCount()}} votes)</span>
+                        <p>
+                            <check if="{{ @similar->getReleaseDate()}}">
+                                Release - {{@similar->getReleaseDate()->format('l d F Y')}}
+                            </check>
+                        </p>
+                        <p class="secondary-content">
+                            <a href="{{@BASE}}/movies/{{@similar->getId()}}" class="waves-effect waves-light btn">Details</a>
+                        </p>
+                        </li>
+                </repeat>
+            </ul>
+        </div>
+    </div>
 </div>
+<script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems = document.querySelectorAll('.carousel');
+            var instance = M.Carousel.init(elems, {
+              fullWidth: true,
+              indicators: true,
+            });
+        });
+</script>

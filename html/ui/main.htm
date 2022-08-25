@@ -14,7 +14,7 @@
       </style>
     </head>
 
-    <body>
+    <body class="grey lighten-2">
       <nav class="nav-extended navbar-fixed blue-grey darken-4">
         <div class="nav-wrapper">
           <a href="{{ @BASE_URL }}" class="brand-logo">Movies DB</a>
@@ -26,17 +26,21 @@
       </nav>
       <main>
         <check if="{{ isset(@BREADCRUMB) }}">
-          <nav class="blue-grey darken-2">
-            <div class="nav-wrapper">
-              <div class="col s12">
-                <repeat group="{{ @BREADCRUMB }}" value="{{ @value }}">
-                  <a href="{{@value.path}}" class="breadcrumb">{{@value.title}}</a>
-                </repeat>
+          <div class="content">
+            <nav class="blue-grey darken-2">
+              <div class="nav-wrapper">
+                <div class="col s12">
+                  <repeat group="{{ @BREADCRUMB }}" value="{{ @value }}">
+                    <a href="{{@value.path}}" class="breadcrumb">{{@value.title}}</a>
+                  </repeat>
+                </div>
               </div>
-            </div>
-          </nav>
+            </nav>
+          </div>
         </check>
-        <include href="{{ @content }}" />
+        <div class="content">
+          <include href="{{ @content }}" />
+        </div>
       </main>
       <footer class="page-footer blue-grey darken-4">
         <div class="footer-copyright">
