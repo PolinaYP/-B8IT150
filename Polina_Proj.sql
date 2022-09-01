@@ -5,12 +5,13 @@ CREATE DATABASE Polina_Proj;
 USE Polina_Proj;
 
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 CREATE TABLE `favourites` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -20,6 +21,7 @@ CREATE TABLE `favourites` (
   `poster` text,
   PRIMARY KEY (`id`),
   KEY `user` (`user`),
+  UNIQUE `unique_index`(`user`, `movie_id`),
   CONSTRAINT `favourites_ibfk_1` FOREIGN KEY (`user`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

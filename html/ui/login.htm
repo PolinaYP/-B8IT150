@@ -1,8 +1,8 @@
 <div class="row">
     <div class="col s12 m6 offset-m3 l4 offset-l4">
       <ul class="tabs tabs-fixed-width">
-        <li class="tab col s3"><a href="#register">Register</a></li>
         <li class="tab col s3"><a class="active" href="#login">Login</a></li>
+        <li class="tab col s3"><a href="#register">Register</a></li>
       </ul>
     </div>
     <div id="login" class="col s12 m6 offset-m3 l4 offset-l4">
@@ -33,6 +33,10 @@
                 <span class="helper-text" data-error="Invalid email"></span>
             </div>
             <div class="input-field col s12">
+                <input id="name" type="text" class="validate">
+                <label for="name">Name</label>
+            </div>
+            <div class="input-field col s12">
                 <input id="register-password" type="password">
                 <label for="register-password">Password</label>
             </div>
@@ -60,11 +64,11 @@
         const emailInput = document.querySelector('#email');
         const passwordInput = document.querySelector('#password');
         if(!emailInput.classList.contains('valid')) {
-            alert('Please enter your email');
+            M.toast({html: 'Please enter your email', classes: 'red white-text rounded'});
             return;
         } 
         if(passwordInput.value.length == 0) {
-            alert('Please enter your password');
+            M.toast({html: 'Please enter your password', classes: 'red white-text rounded'});
             return;
         }
         var xhr = new XMLHttpRequest();
@@ -76,24 +80,34 @@
             password: passwordInput.value,
         }));
         xhr.onload = function() {
-            console.log(this.responseText);
+            const response = JSON.parse(this.responseText)
+            if(response.status == 'success') {
+                window.location.replace('account');
+            } else {
+                M.toast({html: response.message, classes: 'red white-text rounded'});
+            }
         }
     }
 
     function register() {
         const emailInput = document.querySelector('#register-email');
+        const nameInput = document.querySelector('#name');
         const passwordInput = document.querySelector('#register-password');
         const repeatInput = document.querySelector('#repeat-password');
         if(!emailInput.classList.contains('valid')) {
-            alert('Please enter your email');
+            M.toast({html: 'Please enter your email', classes: 'red white-text rounded'});
             return;
         } 
+        if(nameInput.value.trim().length == 0) {
+            M.toast({html: 'Please enter your name', classes: 'red white-text rounded'});
+            return;
+        }
         if(passwordInput.value.length == 0) {
-            alert('Please enter your password');
+            M.toast({html: 'Please enter your password', classes: 'red white-text rounded'});
             return;
         }
         if(passwordInput.value !== repeatInput.value) {
-            alert('Passwords did not match');
+            M.toast({html: 'Passwords did not match', classes: 'red white-text rounded'});
             return;
         }
         var xhr = new XMLHttpRequest();
@@ -102,11 +116,15 @@
         xhr.send(JSON.stringify({
             action: 'register',
             email: emailInput.value,
+            name: nameInput.value,
             password: passwordInput.value,
             repeatPassword: repeatInput.value
         }));
         xhr.onload = function() {
-            console.log(this.responseText);
+            const response = JSON.parse(this.responseText)
+            if(response.status == 'success') {
+                window.location.replace('account');
+            }
         }
     }
 </script>

@@ -8,9 +8,11 @@ use Tmdb\Factory\ImageFactory;
 use Tmdb\Helper\ImageHelper;
 use Tmdb\Model\Image;
 use Tmdb\Repository\ConfigurationRepository;
+use \DB\SQL\Session;
 
 final class ActorsController {
     function get(Base $f3, array $args): void {
+        new \DB\SQL\Session($f3->DB);
         $client = ApiClient::makeClient();
         $searchString = $f3->GET['search'] ?? NULL;
         $people = [];
@@ -40,6 +42,7 @@ final class ActorsController {
     }
 
     public function getActorDetails(Base $f3, array $args): void {
+        new \DB\SQL\Session($f3->DB);
         $client = ApiClient::makeClient();
         $repository = new PeopleRepository($client);
         $actor = $repository->load($args['actorId']);

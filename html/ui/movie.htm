@@ -27,6 +27,21 @@
                     </tr>
                 </body>
             </table>
+            <check if="{{isset(@SESSION.isLoggedIn) && @SESSION.isLoggedIn}}">
+                <div class="row"></div>
+                <div class="row">
+                    <div class="col s12">
+                        <check if="{{@movieInFavourites}}">
+                            <true>
+                                <a class="btn btn-small waves-effect waves-light red" onclick="removeFavouriteAction()"><i class="material-icons left">delete</i> Remove from favourites</a>
+                            </true>
+                            <false>
+                                <a class="waves-effect waves-light btn-small green" onclick="favouriteAction()"><i class="material-icons left">favorite</i>Add to favourites</a>
+                            </false>
+                        </check>
+                    </div>
+                </div>
+            </check>
         </div>
     </div>
     <div class="row">
@@ -63,7 +78,7 @@
                             </check>
                         </p>
                         <p class="secondary-content">
-                            <a href="{{@BASE}}/movies/{{@similar->getId()}}" class="waves-effect waves-light btn">Details</a>
+                            <a href="{{@BASE}}/movies/{{@similar->getId()}}" class="btn-floating btn-small waves-effect waves-light grey"><i class="material-icons">chevron_right</i></a>
                         </p>
                         </li>
                 </repeat>
@@ -72,11 +87,56 @@
     </div>
 </div>
 <script type="text/javascript">
-        document.addEventListener('DOMContentLoaded', function() {
-            var elems = document.querySelectorAll('.carousel');
-            var instance = M.Carousel.init(elems, {
-              fullWidth: true,
-              indicators: true,
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+        var elems = document.querySelectorAll('.carousel');
+        var instance = M.Carousel.init(elems, {
+            fullWidth: true,
+            indicators: true,
         });
+    });
+
+    <check if="{{isset(@SESSION.isLoggedIn) && @SESSION.isLoggedIn}}">
+        <check if="{{@movieInFavourites}}"> 
+            <true>
+                function removeFavouriteAction() {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("DELETE", 'favourites', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
+                        movieId: {{@movie->getId()}}
+                    }));
+                    xhr.onload = function() {
+                        console.log(this.responseText);
+                        const response = JSON.parse(this.responseText);
+                        if(response.status == 'success') {
+                            location.reload();
+                        } else {
+                            M.toast({html: response.message, classes: 'red white-text rounded'});
+                        }
+                    }
+                }
+            </true>
+            <false>
+                function favouriteAction() {
+                    var xhr = new XMLHttpRequest();
+                    xhr.open("POST", 'favourites', true);
+                    xhr.setRequestHeader('Content-Type', 'application/json');
+                    xhr.send(JSON.stringify({
+                        title: "{{@movie->getTitle()}}",
+                        movieId: {{@movie->getId()}},
+                        poster: "http://image.tmdb.org/t/p/w300{{@movie->getPosterImage()->getFilePath()}}"
+                    }));
+                    xhr.onload = function() {
+                        console.log(this.responseText);
+                        const response = JSON.parse(this.responseText);
+                        if(response.status == 'success') {
+                            location.reload();
+                        } else {
+                            M.toast({html: response.message, classes: 'red white-text rounded'});
+                        }
+                    }
+                }
+            </false>    
+        </check>
+    </check>
 </script>

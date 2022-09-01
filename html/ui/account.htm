@@ -1,0 +1,38 @@
+<div class="row">
+    <div class="col right">
+        <h5>Welcome back {{@SESSION.name}}</h5>
+    </div>
+</div>
+<div class="row">
+    <div class="col s2 right">
+        <button class="btn waves-effect waves-light right" type="submit" name="action" onclick="logout()">Logout
+            <i class="material-icons right">send</i>
+          </button>
+    </div>
+</div>
+<div class="row">
+    <div class="col l12">
+        <ul class="collection">
+            <h4>Favourite movies</h4>
+            <check if="{{ !empty(@list)}}">
+                <repeat group="{{ @list }}" value="{{ @movie }}">
+                    <li class="collection-item avatar">
+                        <img src="{{ @movie.poster }}" alt="" class="circle">
+                        <span class="title"><strong>{{ @movie.title }}</strong></span>
+                        <p class="secondary-content">
+                            <a href="{{@BASE}}/movies/{{@movie.movie_id}}" class="btn-floating btn-small waves-effect waves-light grey"><i class="material-icons">chevron_right</i></a>
+                        </p>
+                      </li>
+                </repeat>
+            </check>
+            <check if="{{ empty(@list) }}">
+                <div class="grey-text center">No favourites saved</div>
+            </check> 
+        </ul>
+    </div>
+</div>
+<script type="text/javascript">
+    function logout() {
+        window.location.replace('logout');
+    }
+</script>
